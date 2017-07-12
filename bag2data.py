@@ -75,6 +75,7 @@ def main():
         forbiden_list = ["camera", "rosout", "tf"]
         for topicName in listOfTopics:
             if ("camera_info" in topicName) or not any(forbiden not in topicName for forbiden in forbiden_list):
+                print "Generating CSV from ", topicName
                 #Create a new CSV file for each topic
                 filename = folder + '/' + string.replace(topicName[1:], '/', '_') + '.csv'
                 with open(filename, 'w+') as csvfile:
@@ -113,7 +114,7 @@ def main():
                     pass
 
                 count = 0
-                print topicName
+                print "Get images from ", topicName
                 for topic, msg, t in bag.read_messages(topics=[topicName]):
                     #convert ros image to cv2 image
                     cv_img = bridge.imgmsg_to_cv2(msg, desired_encoding="passthrough")
