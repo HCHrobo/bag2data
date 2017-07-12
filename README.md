@@ -1,8 +1,11 @@
 # bag2data
 
-Copyright 2012 Nick Speal <nick@speal.ca> and McGill University's Aerospace Mechatronics Laboratory contributors.
-Copyright 2016 W. Nicholas Greene <wng@csail.mit.edu> Massachusetts Institute of Technology
 Copyright 2017 Francisco Alexandre R. Alencar <alealencar@gmail.com> Mobile Robotics Laboratory - ICMC/USP
+
+Copyright 2016 W. Nicholas Greene <wng@csail.mit.edu> Massachusetts Institute of Technology
+
+Copyright 2012 Nick Speal <nick@speal.ca> and McGill University's Aerospace Mechatronics Laboratory contributors.
+
 
 The following code is a derivative work of the code from the Nick Speal and Nicholas Greene.
 This code therefore is also licensed under the terms of the GNU Public License, verison 2.
