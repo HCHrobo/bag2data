@@ -74,7 +74,7 @@ def main():
 
         forbiden_list = ["camera", "rosout", "tf"]
         for topicName in listOfTopics:
-            if ("camera_info" in topicName) or not any(forbiden not in topicName for forbiden in forbiden_list):
+            if ("camera_info" in topicName) or not any(forbiden in topicName for forbiden in forbiden_list):
                 #Create a new CSV file for each topic
                 filename = folder + '/' + string.replace(topicName[1:], '/', '_') + '.csv'
                 with open(filename, 'w+') as csvfile:
@@ -103,6 +103,7 @@ def main():
                         for pair in instantaneousListOfData:
                             values.append(pair[1])
                         filewriter.writerow(values)
+
             elif "camera" in topicName:
                 bridge = CvBridge()
                 folder_img =  string.replace(topicName[1:], '/', '_')
