@@ -72,7 +72,7 @@ def main():
             if topic not in listOfTopics:
                 listOfTopics.append(topic)
 
-        forbiden_list = ["camera", "rosout", "tf"]
+        forbiden_list = ["image", "rosout", "tf"]
         for topicName in listOfTopics:
             if ("camera_info" in topicName) or not any(forbiden in topicName for forbiden in forbiden_list):
                 #Create a new CSV file for each topic
@@ -104,7 +104,7 @@ def main():
                             values.append(pair[1])
                         filewriter.writerow(values)
 
-            elif "camera" in topicName:
+            elif "camera" in topicName and "imu" not in topicName:
                 bridge = CvBridge()
                 folder_img =  string.replace(topicName[1:], '/', '_')
                 #create a new directory
@@ -115,14 +115,19 @@ def main():
 
                 count = 0
                 print topicName
+                f=open(os.path.join(folder+"/time.txt"),'w')
                 for topic, msg, t in bag.read_messages(topics=[topicName]):
                     #convert ros image to cv2 image
+                    print topicName
                     cv_img = bridge.imgmsg_to_cv2(msg, desired_encoding="passthrough")
                     #write image with seconds and milliseconds information
-                    cv2.imwrite(os.path.join(folder+"/"+folder_img, "frame-{}.{:03d}.bmp".format(str(t.secs)[-4:], t.nsecs/1000000)), cv_img[:,:,[2,1,0]])
+                    cv2.imwrite(os.path.join(folder+"/"+folder_img, "{:04d}".format(count)+"-{}.{:03d}.bmp".format(str(t.secs)[-4:], t.nsecs/1000000)), cv_img)
+                    f.write("{:04d}".format(count)+" {}.{:03d}".format(str(t.secs)[-4:], t.nsecs/1000000))
+                    f.write('\n')
                     print "Wrote image %i" % count
 
                     count += 1
+                f.close()
 
         bag.close()
 
